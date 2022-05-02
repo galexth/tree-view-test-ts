@@ -4,6 +4,10 @@
 
 `npm start`
 
+### Storybook
+
+`npm run storybook`
+
 ### Table view settings:
 
 ```js
@@ -43,25 +47,4 @@ const data = [
 
 ```jsx
 <Table nodes={data} config={config} />
-```
-
-### List view settings:
-
-```js
-const config = {
-  title: "title",
-  headers: {},
-};
-
-const data = [
-    ...,
-    {
-        title: 'some title',
-        childs: [...]
-    }
-];
-```
-
-```jsx
-<List nodes={data} config={config} />
 ```

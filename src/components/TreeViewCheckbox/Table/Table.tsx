@@ -3,6 +3,9 @@ import Model from "../Model";
 import { Config, Node } from "../types";
 import TableRow from "./TableRow";
 import { isEqual } from "lodash";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
 type Props = {
   nodes: Node[];
@@ -86,11 +89,15 @@ class Table extends React.Component<Props, State> {
   }
 
   render() {
+    const headers = this.renderHeaders();
+
     return (
       <table>
-        <thead>
-          <tr>{this.renderHeaders()}</tr>
-        </thead>
+        {headers.length > 0 && (
+          <thead>
+            <tr>{headers}</tr>
+          </thead>
+        )}
         <tbody>{this.renderNodes(this.props.nodes)}</tbody>
       </table>
     );
