@@ -2,6 +2,7 @@ import React from "react";
 import Model from "../Model";
 import { Config, Node } from "../types";
 import TableRow from "./TableRow";
+import { isEqual } from "lodash";
 
 type Props = {
   nodes: Node[];
@@ -10,6 +11,8 @@ type Props = {
 
 type State = {
   model: Model;
+  nodes: Node[];
+  config: Config;
 };
 
 class Table extends React.Component<Props, State> {
@@ -18,9 +21,20 @@ class Table extends React.Component<Props, State> {
 
     const model = new Model(props.config, props.nodes);
 
-    this.state = { model };
+    this.state = { model, ...props };
 
     this.onChange = this.onChange.bind(this);
+  }
+
+  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+    if (!isEqual(nextProps.nodes, prevState.nodes)) {
+      return {
+        ...nextProps,
+        model: new Model(nextProps.config, nextProps.nodes),
+      };
+    }
+
+    return null;
   }
 
   onChange(id: string, value: boolean) {
